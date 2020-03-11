@@ -18,4 +18,8 @@ public class AdminIndexController {
         return "admin/tables-contact";
     }
 
+    @GetMapping({"/contact/add"})
+    public String add() {
+        return "admin/form-contact";
+    }
 }

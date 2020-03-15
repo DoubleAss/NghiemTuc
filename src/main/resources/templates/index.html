@@ -5,7 +5,7 @@
         <meta charset="utf-8" />
         <title>Dashboard - Ace Admin</title>
 
-        <meta name="description" content="overview &amp; stats" />
+        <meta name="description" content="overview &amp stats" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
@@ -13,9 +13,12 @@
     </head>
     <body>
         <div id="app">
-            <button @click="hello">Create User</button>
+            <input type="text" v-model="user.name" placeholder="first name">
+    <input type="text" v-model="user.id" placeholder="last name">
+        
+            <button @click="hello('/hello')">Create User</button>
 
-            <div v-if="showResponse"><h6>User created with Id: {{ user }}</h6></div>
+            <div v-if="showResponse"><h6>User created with Id: {{ user.id }}</h6></div>
         </div>
         
         
@@ -28,8 +31,8 @@
         	        response: [],
         	        errors: [],
         	        user: {
-        	          name: '',
-        	          id: 0
+        	        	name: '',
+        	        	id: 0
         	        },
         	        showResponse: false,
         	        retrievedUser: {},
@@ -38,21 +41,24 @@
         	    },
         	    methods: {
         	        // Fetches posts when the component is created.
-        	        hello () {
+        	        hello (str) {
 
-        	          axios.get("/hello").then(response => {
+        	          axios.get(str).then(response => {
         	              // JSON responses are automatically parsed.
-        	              this.response = response.data;
-        	              this.user = response.data;
-        	              console.log('Created new User with Id ' + response);
-        	              console.log('2 ' + this.user.id);
+        	              this.response = response.data
+        	              //this.user = response.data
+        	              console.log('Created new User with Id ' + response)
+        	              console.log('2 ' + this.user.id)
         	              this.showResponse = true
         	            })
         	            .catch(e => {
         	              this.errors.push(e)
         	            })
         	        }
-        	      }
+        	      },
+        	      beforeMount(){
+        	    	    //this.hello('/hello')
+       	    	  }
         })
         </script>
     </body>
